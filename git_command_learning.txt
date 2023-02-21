@@ -22,15 +22,14 @@ git reset --hard HEAD^ #把当前版本回退到上个版本
 
 git reset --hard 'commit id' #回退到commit id 版本，commit id 是上面log所显示的id，前几位就可，git会自动搜索
 
-# git 内部个有指向当前HEAD的指针， 所以退版本等操作相当于改变HEAD指针位置
+# git 内部个有HEAD指针指向当前master(单分支)，master指针再指向当前提交版本，所以退版本等操作相当于改变master指针位置
 
 git reflog  #查看历史命令(可以确认版本回退后，回退前的版本ID)
 
 #没有git add 到暂存区的文件 不会加入到commit中
 
 git checkout -- xxx #丢弃工作区的修改（回到最近一次 git commit 或者git add 后的状态,git rm 误删后可以通过这个恢复）
-
-git restore xxx  #丢弃工作区的修改 （回到最近一次 git commit 或者git add 后的状态）
+git restore xxx  #丢弃工作区的修改 （回到最近一次 git commit 或者git add 后的状态）推荐使用这个指令
 
 git rest HEAD xxx  #丢弃暂存区的修改（git add 后的队列)
 
@@ -58,9 +57,32 @@ git remote rm xxx #解除和xxx远程库的关系，删除的话需要登录到g
 
 git clone git@github com:xxx/xxx.git #从github上克隆一个本地库
 
+#创建分支时，git新建了个dev指针，指向master相同提交版本，此时HEAD指向dev(HEAD指针指向的地方表示当前分支)
+#对工作区的修改和提交都是对于HEAD指针所指向的地方
+#例如指向dev分支后，进行提交，dev指针++，而master指针不变
+
+#分支可在不改变主分支（master）的情况下进行提交修改等操作
+
+#将master指向dev的当前提交就完成了分支的合并
+
+#合并后，无用的分支dev可以删除，即删除dev指针
+
+git branch dev #创建dev分支
+
+git checkout dev #切换到dev分支
+git switch dev #切换到dev分支   推荐这个，更易理解
 
 
+git checkout -b dev  #创建dev分支，然后切换到dev分支， ’-b‘参数表示创建并切换
+git switch -c dev    #创建dev分支，然后切换到dev分支， 推荐使用这个，更易理解
 
+#git branch  #查看当前所有分支， *表示当前指向分支 
+
+#切换回master分支时dev上进行的提交和修改都不在，因为master指向的提交点并没改变
+
+git merge dev #将dev分支的成果合并到master分支(指定分支合并到当前分支)上
+
+git branch -d dev #删除dev分支
 
 
 
