@@ -56,6 +56,9 @@ git remote -v #查看远程库信息
 
 git remote rm xxx #解除和xxx远程库的关系，删除的话需要登录到github在后台进行删除
 
+git clone git@github com:xxx/xxx.git #从github上克隆一个本地库
+
+
 
 
 
