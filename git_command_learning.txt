@@ -26,6 +26,8 @@ git reset --hard 'commit id' #回退到commit id 版本，commit id 是上面log
 
 git reflog  #查看历史命令(可以确认版本回退后，回退前的版本ID)
 
+#没有git add 到暂存区的文件 不会加入到commit中
+
 
 
 
