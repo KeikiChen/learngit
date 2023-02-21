@@ -28,12 +28,26 @@ git reflog  #查看历史命令(可以确认版本回退后，回退前的版本
 
 #没有git add 到暂存区的文件 不会加入到commit中
 
-git checkout -- xxx #丢弃工作区的修改（回到最近一次 git commit 或者git add 后的状态）
+git checkout -- xxx #丢弃工作区的修改（回到最近一次 git commit 或者git add 后的状态,git rm 误删后可以通过这个恢复）
 
 git restore xxx  #丢弃工作区的修改 （回到最近一次 git commit 或者git add 后的状态）
 
 git rest HEAD xxx  #丢弃暂存区的修改（git add 后的队列)
 
+rm xxx #cmd指令删除文件
+
+git rm xxx #从版本库里删除文件，删除后需要重新git commit
+
+git remote add [shortname] [url] #添加远程仓库
+
+git remote add origin git@github.com:xxxx/xxxx.git  #把本地的xxx仓库添加到github的xxx(我的是KeikiChen)账号上
+
+#添加后的远程库名字是origin(也可以更改)
+
+git push #把当前分支推送到远程
+
+#git push -u origin master #把master分支推送到origin远程库 
+#'-u' 参数把本地master分支和远程master分支关联起来 
 
 
 
