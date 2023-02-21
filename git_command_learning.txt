@@ -1,7 +1,7 @@
 git init     #把当前目录变成git可以管理的仓库， git只能在可以管理的仓库下进行管理
 ##git只能跟踪文本文件改动，所以尽量使用vscode的UTF-8文件，别用windows记事本
  
-git add xxx.txt    #把文件xxx添加到仓库(待提交队列)
+git add xxx.txt    #把文件xxx添加到仓库(添加到暂存区‘stage’或者叫index)
 
 git commit -m "xxxx"   #把文件提交到仓库，-m 后面的是本次提交的说明
 
@@ -25,6 +25,8 @@ git reset --hard 'commit id' #回退到commit id 版本，commit id 是上面log
 # git 内部个有指向当前HEAD的指针， 所以退版本等操作相当于改变HEAD指针位置
 
 git reflog  #查看历史命令(可以确认版本回退后，回退前的版本ID)
+
+
 
 
 
