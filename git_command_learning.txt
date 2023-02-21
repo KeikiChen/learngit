@@ -32,7 +32,7 @@ git checkout -- xxx #丢弃工作区的修改（回到最近一次 git commit �
 
 git restore xxx  #丢弃工作区的修改 （回到最近一次 git commit 或者git add 后的状态）
 
-git rest HEAD xxx  #丢弃暂存区的修改（git add 后的队列）
+git rest HEAD xxx  #丢弃暂存区的修改（git add 后的队列)
 
 
 
