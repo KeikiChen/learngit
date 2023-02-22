@@ -92,7 +92,7 @@ git log --graph --pretty=oneline --abbre-commit #简化的分支合并图
 
 #合并时默认使用Fast forward， 这种模式下删除分支后，被删除分支的信息将会丢失(log 显示不出来)
 
-git merge --no-ff -m "xxx" dev #合并时创建新的提交，原分支还在
+git merge --no-ff -m "xxx" dev #强制禁用Fast forw模式，git会在合并时创建新的提交，原分支还在，分支历史上会显示该分支的合并信息等
 
 git merge -ff  #不创建新的提交，将master指向分支的提交
 
