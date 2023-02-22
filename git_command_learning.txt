@@ -111,5 +111,9 @@ git stash pop #恢复并删除stash内容，只保存了单个工作现场可以
 
 git cherry-pick xxx  #复制特定的xxx(commit id)提交到当前分支
 
+#新开发一个feature(功能)，最好新建一个分支，开发时不会影响到原本的文件
+
+git branch -D xxx  #强行删除  ， 可以用于丢弃没有被合并过的分支
+
 
 
