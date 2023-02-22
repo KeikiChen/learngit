@@ -1,3 +1,10 @@
+这个文件保存了常用的git command 和对命令简单的理解
+
+
+rm xxx #cmd指令删除文件
+cat > xxx     #读取和连接文件 也可用于创建文件  
+
+
 git init     #把当前目录变成git可以管理的仓库， git只能在可以管理的仓库下进行管理
 ##git只能跟踪文本文件改动，所以尽量使用vscode的UTF-8文件，别用windows记事本
  
@@ -32,8 +39,6 @@ git checkout -- xxx #丢弃工作区的修改（回到最近一次 git commit �
 git restore xxx  #丢弃工作区的修改 （回到最近一次 git commit 或者git add 后的状态）推荐使用这个指令
 
 git rest HEAD xxx  #丢弃暂存区的修改（git add 后的队列)
-
-rm xxx #cmd指令删除文件
 
 git rm xxx #从版本库里删除文件，删除后需要重新git commit
 
@@ -88,7 +93,7 @@ git branch -d dev #删除dev分支
 
 git log --graph  #可以看到分支合并图
 
-git log --graph --pretty=oneline --abbre-commit #简化的分支合并图
+git log --graph --pretty=oneline --abbrev-commit #简化的分支合并图
 
 #合并时默认使用Fast forward， 这种模式下删除分支后，被删除分支的信息将会丢失(log 显示不出来)
 
@@ -123,3 +128,13 @@ git checkout -b branch-name origin/branch-name  #在本地创建和支远程分�
 git branch --set-upstream branch-name origin/branch-name  #建立本地分支和远程分支的关联
 
 git pull #从远程抓取分支(与远程的提交有冲突时需要pull下来解决冲突在提交)
+
+git rebase #把本地未push的分支提交历史整理成直线，方便查看历史变化
+##原理是把本地提交的位置移动了
+##  |C                               |     C
+##  |  \          rebase后           |     | 
+##  |   B        --------->          |     B  
+##  |  /                             |  / 
+##  A                                A 
+## ...
+##本地飞commit修改内容C不在基于原先的A而是基于B
