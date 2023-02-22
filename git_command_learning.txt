@@ -84,10 +84,20 @@ git merge dev #将dev分支的成果合并到master分支(指定分支合并到�
 
 git branch -d dev #删除dev分支
 
-#当分支和master的文件都有新的修改时，不能直接合并会产生冲突，需要修改后再次提交
+#当分支和master的文件都有新的修改提交时，不能直接合并会产生冲突，需要修改后再次提交
 
 git log --graph  #可以看到分支合并图
 
+git log --graph --pretty=oneline --abbre-commit #简化的分支合并图
+
+#合并时默认使用Fast forward， 这种模式下删除分支后，被删除分支的信息将会丢失(log 显示不出来)
+
+git merge --no-ff -m "xxx" dev #合并时创建新的提交，原分支还在
+
+git merge -ff  #不创建新的提交，将master指向分支的提交
+
+git merge -squash #将分支中的待合并文件的最后一个提交放到当前工作区中，需要再次进行add和commit
+#若与原工作区文件有冲突，冲突内容将全部展示在文件中.
 
 
 
