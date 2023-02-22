@@ -4,6 +4,7 @@
 rm xxx #cmd指令删除文件
 cat > xxx     #读取和连接文件 也可用于创建文件  
 
+commit(提交)
 
 git init     #把当前目录变成git可以管理的仓库， git只能在可以管理的仓库下进行管理
 ##git只能跟踪文本文件改动，所以尽量使用vscode的UTF-8文件，别用windows记事本
@@ -142,3 +143,13 @@ git rebase #把本地未push的分支提交历史整理成直线，方便查看�
 #tag(标签)方便寻找版本，实际上就是指向某个commit的指针(commit本身就是版本库的快照)
 #tag和commit的关系类似于域名和IP
 
+git tag tagname #用于新建一个标签，默认为HEAD，后面跟commit-id就是在那个commit上标签
+
+git tag -a tagname -m "xxxx" commit-id  #可以给标签指定信息 -a指定标签名，-m指定说明文字
+
+git tag  #查看所有的标签
+
+git show tagname #显示这个标签信息
+
+##tag是和commit绑定的，所有分支的相同commit都能看到这个标签
+##tag可以理解为指向commit的死指针，branch是指向commit的活指针
