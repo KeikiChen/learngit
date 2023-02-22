@@ -1,0 +1,188 @@
+对廖雪峰大佬Git教程的小笔记
+https://www.liaoxuefeng.com/wiki/896043488029600
+----------------------------------------------------------------------
+
+这个文件保存了常用的git command 和对命令简单的理解
+
+
+rm xxx #cmd指令删除文件
+cat > xxx     #读取和连接文件 也可用于创建文件  
+
+###commit(提交)
+
+git init     #把当前目录变成git可以管理的仓库， git只能在可以管理的仓库下进行管理
+##git只能跟踪文本文件改动，所以尽量使用vscode的UTF-8文件，别用windows记事本
+ 
+git add xxx    #把文件xxx添加到仓库(添加到暂存区‘Stage’或者叫index)
+
+git commit -m "xxxx"   #把暂存区文件提交到仓库(分支)，-m 后面的是本次提交的说明
+
+git status #查看仓库当前状态(可显示文件是否被修改，是否准备提交等)
+
+git diff xxx #查看文件的修改内容
+
+git log #显示提交日志
+
+git log --pretty=oneline #显示提交日志(简化成一行)
+
+##第一行commit:xxx和开头是commit id(指向文件版本的id)
+
+git reset --hard HEAD^ #把当前版本回退到上个版本
+
+# 'HEAD' 表示当前版本 'HEAD^' 表示上个版本 'HEAD^^'表示上上个版本. 以此类推
+# 'HEAD~100' 表示前100个版本
+
+git reset --hard 'commit id' #回退到commit id 版本，commit id 是上面log所显示的id，前几位就可，git会自动搜索
+
+# git 内部个有HEAD指针指向当前master(单分支)，master指针再指向当前提交版本，所以退版本等操作相当于改变master指针位置
+
+git reflog  #查看历史命令(可以确认版本回退后，回退前的版本ID)
+
+#没有git add 到暂存区的文件 不会加入到commit中
+
+git checkout -- xxx #丢弃工作区的修改（回到最近一次 git commit 或者git add 后的状态,git rm 误删后可以通过这个恢复）
+git restore xxx  #丢弃工作区的修改 （回到最近一次 git commit 或者git add 后的状态）推荐使用这个指令
+
+git rest HEAD xxx  #丢弃暂存区的修改（git add 后的队列)
+
+git rm xxx #从版本库里删除文件，删除后需要重新git commit
+
+git remote add [shortname] [url] #添加远程仓库
+
+git remote add origin git@github.com:xxxx/xxxx.git  #把本地的xxx仓库添加到github的xxx(我的是KeikiChen)账号上
+
+#添加后的远程库名字是origin(也可以更改)
+
+git push #把当前分支推送到远程
+
+#git push -u origin master #把master分支推送到origin远程库 
+#'-u' 参数把本地master分支和远程master分支关联起来 
+#之后可以直接 
+git push origin master
+#向远程仓库origin推送分支master的最新修改
+
+git remote -v #查看远程库信息
+
+git remote rm xxx #解除和xxx远程库的关系，删除的话需要登录到github在后台进行删除
+
+git clone git@github com:xxx/xxx.git #从github上克隆一个本地库
+
+#创建分支时，git新建了个dev指针，指向master相同提交版本，此时HEAD指向dev(HEAD指针指向的地方表示当前分支)
+#对工作区的修改和提交都是对于HEAD指针所指向的地方
+#例如指向dev分支后，进行提交，dev指针++，而master指针不变
+
+#分支可在不改变主分支（master）的情况下进行提交修改等操作
+
+#将master指向dev的当前提交就完成了分支的合并
+
+#合并后，无用的分支dev可以删除，即删除dev指针
+
+git branch dev #创建dev分支
+
+git checkout dev #切换到dev分支
+git switch dev #切换到dev分支   推荐这个，更易理解
+
+
+git checkout -b dev  #创建dev分支，然后切换到dev分支， ’-b‘参数表示创建并切换
+git switch -c dev    #创建dev分支，然后切换到dev分支， 推荐使用这个，更易理解
+
+#git branch  #查看当前所有分支， *表示当前指向分支 
+
+#切换回master分支时dev上进行的提交和修改都不在，因为master指向的提交点并没改变
+
+git merge dev #将dev分支的成果合并到master分支(指定分支合并到当前分支)上
+
+git branch -d dev #删除dev分支
+
+#当分支和master的文件都有新的修改提交时，不能直接合并会产生冲突，需要修改后再次提交
+
+git log --graph  #可以看到分支合并图
+
+git log --graph --pretty=oneline --abbrev-commit #简化的分支合并图
+
+#合并时默认使用Fast forward， 这种模式下删除分支后，被删除分支的信息将会丢失(log 显示不出来)
+
+git merge --no-ff -m "xxx" dev #强制禁用Fast forw模式，git会在合并时创建新的提交，原分支还在，分支历史上会显示该分支的合并信息等
+
+git merge -ff  #不创建新的提交，将master指向分支的提交
+
+git merge -squash #将分支中的待合并文件的最后一个提交放到当前工作区中，需要再次进行add和commit
+#若与原工作区文件有冲突，冲突内容将全部展示在文件中.
+
+git stash #将当前工作现场(分支上未完成的文件)储存起来, 方便去其他分支工作
+
+git stash list #显示暂存的工作现场位置
+
+git stash apply stash@{x} #恢复stash{x}保存的工作现场，但是stash内容并不删除，只保存了单个工作现场可以不用指定stash
+
+git stash drop  stash@{x} #删除stash{x}的内容，只保存了单个工作现场可以不用指定stash
+
+git stash pop #恢复并删除stash内容，只保存了单个工作现场可以不用指定stash
+
+git cherry-pick xxx  #复制特定的xxx(commit id)提交到当前分支
+
+#新开发一个feature(功能)，最好新建一个分支，开发时不会影响到原本的文件
+
+git branch -D xxx  #强行删除  ， 可以用于丢弃没有被合并过的分支
+
+#分支不一定要往远程仓库推送，正常master主分支，dev开发分支一定要远程同步，其他分支取决于是否需要
+#本地分支不推送，其他人就是不可见
+
+git checkout -b branch-name origin/branch-name  #在本地创建和支远程分对应的分支(最好名称一致)
+
+git branch --set-upstream branch-name origin/branch-name  #建立本地分支和远程分支的关联
+
+git pull #从远程抓取分支(与远程的提交有冲突时需要pull下来解决冲突在提交)
+
+git rebase #把本地未push的分支提交历史整理成直线，方便查看历史变化
+##原理是把本地提交的位置移动了
+##  |C                               |     C
+##  |  \          rebase后           |     | 
+##  |   B        --------->          |     B  
+##  |  /                             |  / 
+##  A                                A 
+## ...
+##本地的commit修改内容C不在基于原先的A而是基于B
+
+#tag(标签)方便寻找版本，实际上就是指向某个commit的指针(commit本身就是版本库的快照)
+#tag和commit的关系类似于域名和IP
+
+git tag tagname #用于新建一个标签，默认为HEAD，后面跟commit-id就是在那个commit上标签
+
+git tag -a tagname -m "xxxx" commit-id  #可以给标签指定信息 -a指定标签名，-m指定说明文字
+
+git tag  #查看所有的标签
+
+git show tagname #显示这个标签信息
+
+##tag是和commit绑定的，所有分支的相同commit都能看到这个标签
+##tag可以理解为指向commit的死指针，branch是指向commit的活指针
+
+git push origin tagname #推送一个本地标签
+
+git push tags #推送所有未推送的本地标签
+
+git tag -d tagname #删除一个本地标签
+
+git push origin :refs/tags/tagname #删除一个远程标签
+
+#参与github的开源项目需要在自己账号下先克隆仓库(有权限进行修改)，然后再发起pull request申请接受修改
+
+#需要忽略Git工作区下的文件时，在工作区下创建一个.gitignore文件，把忽略的文件名填进去就好
+#被忽略的文件不能添加到Git，想提交时可以用强制提交
+
+git add -f xxx #强制提交
+
+git check-ignore -v xxx #检查ignore文件中哪条规则忽略了xxx
+
+##。gitignore中可用"!+文件名"来使文件不被ignore规则排除
+##具体规则csdn
+##各种配置文件https://github.com/github/gitignore
+
+git config --global alias.xx  git_command   #自定义git_command为xx
+
+##ex： git config --global alias.st status  
+##git status ---> git st 
+##--global 是全局参数，对所有本地Git仓库生效，不加的话仅对当前仓库生效
+##每个仓库配置文件在 <.git/config> 文件中，当前user的配置在users目录下的隐藏文件<.gitconfig>
+##删除或修改别名的话直接删除或者修改alias后对应的行
