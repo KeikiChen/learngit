@@ -84,6 +84,9 @@ git merge dev #将dev分支的成果合并到master分支(指定分支合并到�
 
 git branch -d dev #删除dev分支
 
+#当分支和master的文件都有新的修改时，不能直接合并会产生冲突，需要修改后再次提交
+
+git log --graph  #可以看到分支合并图
 
 
 
