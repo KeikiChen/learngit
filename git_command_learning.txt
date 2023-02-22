@@ -49,7 +49,7 @@ git push #把当前分支推送到远程
 #'-u' 参数把本地master分支和远程master分支关联起来 
 #之后可以直接 
 git push origin master
-#推送最新修改
+#向远程仓库origin推送分支master的最新修改
 
 git remote -v #查看远程库信息
 
@@ -115,5 +115,11 @@ git cherry-pick xxx  #复制特定的xxx(commit id)提交到当前分支
 
 git branch -D xxx  #强行删除  ， 可以用于丢弃没有被合并过的分支
 
+#分支不一定要往远程仓库推送，正常master主分支，dev开发分支一定要远程同步，其他分支取决于是否需要
+#本地分支不推送，其他人就是不可见
 
+git checkout -b branch-name origin/branch-name  #在本地创建和支远程分对应的分支(最好名称一致)
 
+git branch --set-upstream branch-name origin/branch-name  #建立本地分支和远程分支的关联
+
+git pull #从远程抓取分支(与远程的提交有冲突时需要pull下来解决冲突在提交)
