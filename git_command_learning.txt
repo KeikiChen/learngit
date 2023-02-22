@@ -99,5 +99,17 @@ git merge -ff  #不创建新的提交，将master指向分支的提交
 git merge -squash #将分支中的待合并文件的最后一个提交放到当前工作区中，需要再次进行add和commit
 #若与原工作区文件有冲突，冲突内容将全部展示在文件中.
 
+git stash #将当前工作现场(分支上未完成的文件)储存起来, 方便去其他分支工作
+
+git stash list #显示暂存的工作现场位置
+
+git stash apply stash@{x} #恢复stash{x}保存的工作现场，但是stash内容并不删除，只保存了单个工作现场可以不用指定stash
+
+git stash drop  stash@{x} #删除stash{x}的内容，只保存了单个工作现场可以不用指定stash
+
+git stash pop #恢复并删除stash内容，只保存了单个工作现场可以不用指定stash
+
+git cherry-pick xxx  #复制特定的xxx(commit id)提交到当前分支
+
 
 
